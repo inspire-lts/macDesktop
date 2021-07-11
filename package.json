@@ -10,9 +10,7 @@
     "lint:style": "stylelint --fix \"src/**/*.scss\" --syntax scss",
     "lint:fix": "eslint --fix --cache --ext .js,.jsx,.ts,.tsx",
     "prettier": "prettier -c --write \"src/**/*\"",
-    "lint-staged:js": "eslint --ext .js,.jsx,.ts,.tsx",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build -b master"
+    "lint-staged:js": "eslint --ext .js,.jsx,.ts,.tsx"
   },
   "husky": {
     "hooks": {
