@@ -12,10 +12,10 @@ jobs:
       - uses: actions/checkout@master
 
       # 安装依赖
-      - run: npm ci
+      - run: yarn ci
 
       # 打包
-      - run: npm run build
+      - run: yarn run build
 
       # 部署
       - name: Deploy
