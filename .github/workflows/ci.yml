@@ -1,17 +1,20 @@
-steps:
-- name: Checkout
-  uses: actions/checkout@v2
-  with:
-    persist-credentials: false
-    
-# react项目为npm run-script build，vue项目改为npm run build
-- name: Install and Build
-  run: npm run-script build
-    
-# react项目的FOLDER为build，vue项目改为dist       
-- name: Deploy
-  uses: JamesIves/github-pages-deploy-action@releases/v3
-  with:
-    ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-    BRANCH: gh-pages
-    FOLDER: build
+name: Build and Deploy
+on: [push]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2 
+
+      - name: Install and Build 🔧 
+        run: |
+          npm install
+          npm run build
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: build
