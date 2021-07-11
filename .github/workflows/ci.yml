@@ -1,27 +1,17 @@
-name: Publish to Github Pages
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  build-deploy:
-    runs-on: ubuntu-18.04
-    steps:
-      - uses: actions/checkout@master
-
-      # 安装依赖
-      - run: yarn ci
-
-      # 打包
-      - run: yarn run build
-
-      # 部署
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v2.5.0
-        env:
-          PERSONAL_TOKEN: ${{ secrets.ACCESS_TOKEN}}
-          PUBLISH_BRANCH: gh-pages
-          # 生成文件的目录
-          PUBLISH_DIR: ./build
+steps:
+- name: Checkout
+  uses: actions/checkout@v2
+  with:
+    persist-credentials: false
+    
+# react项目为npm run-script build，vue项目改为npm run build
+- name: Install and Build
+  run: npm run-script build
+    
+# react项目的FOLDER为build，vue项目改为dist       
+- name: Deploy
+  uses: JamesIves/github-pages-deploy-action@releases/v3
+  with:
+    ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+    BRANCH: gh-pages
+    FOLDER: build
